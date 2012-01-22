@@ -1,0 +1,26 @@
+<h1>Administration</h1>
+
+<% if flash[:error] %>
+
+	<div id="error" style="color: red;">
+		<%= flash[:error] %>
+	</div>
+
+<% elsif flash[:notice] %>
+	<div id="notice">
+		<%= flash[:notice] %>
+	</div>
+<% end %>
+
+<table>
+	<%= render :partial => "edit_accounts_users.html" %>
+	<tr>
+		<td><%= link_to "Add a New Account", new_account_path %></td>
+	</tr>
+	<tr>
+		<td><%= link_to "Add a New User", new_person_path %></td>
+	</tr>
+	
+	<%= render :partial => "edit_account.html" %>
+	
+</table>

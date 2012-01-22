@@ -1,0 +1,12 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+greg:
+  name: Gregory Alan Clark
+  username: greg
+  
+holly:
+  name: Holly Tartanian
+  username: holly
+  
+  
+  

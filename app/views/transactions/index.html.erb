@@ -1,0 +1,11 @@
+<h1>Recent Transactions</h1>
+
+<table>
+	<%= render :layout => "transactions/transactions_list_header" do %>
+		<th>Account</th>
+	<% end %>
+	
+	<%= render :layout => "/transactions/transactions_list" do |transaction| %>
+		<td><%= transaction.account.name %></td>
+	<% end %>
+</table>

@@ -1,0 +1,42 @@
+<table style="width: 100%;">
+	<tr>
+		<td style="width: 30%;"></td>
+		<td style="width: 40%;">
+
+<%= form_for :person, :url => {:controller => :sessions, :action => :create} do |f| %>
+	<table style="text-align: center;">
+		<tr style="height: 40px;"></tr>
+		<tr align="left" style="border-bottom: solid 1px black; font-size: 12pt; ">
+			<th colspan="2">Login</th>
+		</tr>
+		
+		<% if flash[:error] %>
+		<tr>
+			<td style="color: red;"><%= flash[:error] %></td>
+		</tr>
+		<% elsif flash[:notice] %>
+		<tr>
+			<td style="color: green;"><%= flash[:notice] %></td>
+		</tr>
+		<% end %>
+		
+		<tr>
+			<td><%= f.text_field :username, :placeholder => "Username" %></td>
+		</tr>
+		
+		<tr>
+			<td><%= f.password_field :password, :placeholder => "Password" %></td>
+		</tr>
+		
+		<tr>
+			<td><%= f.submit "Login" %></td>
+		</tr>
+		
+	</table>
+<% end %>
+
+		</td>
+		<td style="width: 30%;"></td>
+	</tr>
+</table>
+

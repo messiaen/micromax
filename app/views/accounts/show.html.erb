@@ -1,0 +1,76 @@
+<p id="notice"><%= notice %></p>
+
+<table style="vertical-align: bottom">
+	<tr>
+		<td align="left" style="font-size: 16pt; font-weight: bold;"><%= @account.name %></td>
+	</tr>
+	<tr style="height: 2px;"></tr>
+	<tr>
+		<% if @account.last_transaction %>
+			<% if @account.last_transaction.account_balance < 0 %>
+				<td style="color: red; font-size: 12pt;">
+					<b>Balance: </b>
+					<%= sprintf("-$%0.2f", @account.last_transaction.account_balance * -1)%>
+			  </td>
+			<% else %>
+				<td style="font-size: 12pt;">
+					<b>Balance: </b>
+					<%= sprintf("$%0.2f", @account.last_transaction.account_balance) %>
+				</td>
+			<% end %>
+		<% end %>
+	</tr>
+	<tr style="height: 10px;"></tr>
+	<tr>
+		<td><%= link_to "Record Withdraw", "/accounts/#{@account.id}/withdraw" %></td>
+	</tr>
+	<tr>
+		<td><%= link_to "Record Deposit", "/accounts/#{@account.id}/deposit" %></td>
+	</tr>
+</table>
+
+<br />
+
+<div id="tansactions" style="float: left">
+	<%= label_tag "Transactions", "Tansactions", :style => "font-size: 11pt; font-weight: bold;" %>
+	<div id="transactions_list">
+		<table>
+			<%= render :partial => "transactions/transactions_list_header" %>
+	
+			<%= render :partial => "/transactions/transactions_list" %>
+		</table>
+	</div>
+	
+	<%= label_tag :get, "See transactions within a range" %>
+	<table>
+		<%= form_for :transactions_list, :url => "/accounts/#{@account.id}/get_transactions", :remote => true do |f| %>
+			<tr>
+				<th>Starting Date</th>
+				<th>Ending Date</th>
+			</tr>
+			<tr>
+				<td><%= f.text_field :start_date, :class => "date_popup"%></td>
+				<td><%= f.text_field :end_date, :class => "date_popup"%></td>
+				<td></td>
+				<td><%= f.submit "Get Transactions" %></td>
+			</tr>
+		<% end %>
+			
+		
+	</table>
+	
+</div>
+
+<style type="text/css">
+
+table th {
+	text-align: left;
+}
+
+</style>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+			$(".date_popup").datepicker();
+	});
+</script>

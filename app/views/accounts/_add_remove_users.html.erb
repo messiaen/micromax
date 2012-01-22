@@ -1,0 +1,35 @@
+<%= form_for @account, :url => "/accounts/#{@account.id}/add_remove_users" do |f| %>
+
+<table>
+	
+	<tr>
+		<td style="vertical-align: top;">
+			<b>People on this Account</b>
+			<ul type="none">
+				<% @account.people.each do |person| %>
+					<li><%= "#{person.name}" %></li>
+				<% end %>
+			</ul>
+		</td>
+		
+		<td style="vertical-align: top;">
+			<b><%= label_tag :add, "People to Add" %></b><br />
+			<%= collection_select(:a, :add_people, @people_to_add, :id, :name, {}, {:multiple => true, :name => "account[add_people][]"}) %>
+		</td>
+		
+		<td style="vertical-align: top;">
+			<b><%= label_tag :add, "People to Remove" %></b><br />
+			<%= collection_select(:a, :remove_people, @account.people, :id, :name, {}, {:multiple => true, :name => "account[remove_people][]"}) %>
+		</td>
+		
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+		<td style="text-align: right;"><%= f.submit "Add / Remove Users" %></td>
+	</tr>
+	
+
+</table>
+
+<% end %>

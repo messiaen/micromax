@@ -1,0 +1,121 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+gas:
+  name: Gas
+  internal_name: gas
+  kind: Expense
+
+car:
+  name: Car
+  internal_name: car
+  kind: Expense
+
+monthly:
+  name: Monthly Expenses
+  internal_name: monthly
+  kind: Expense
+
+medical:
+  name: Medical
+  internal_name: medical
+  kind: Expense
+
+grocery:
+  name: Grocery
+  internal_name: grocery
+  kind: Expense
+
+clothes:
+  name: Clothes
+  internal_name: clothes
+  kind: Expense
+
+house:
+  name: House
+  internal_name: house
+  kind: Expense
+
+school:
+  name: School
+  internal_name: school
+  kind: Expense
+
+technology:
+  name: Technology
+  internal_name: technology
+  kind: Expense
+
+dining:
+  name: Dining and Entertainment
+  internal_name: dinning
+  kind: Expense
+
+travel:
+  name: Travel
+  internal_name: travel
+  kind: Expense
+
+expense_gifts:
+  name: Gifts
+  internal_name: gifts
+  kind: Expense
+  
+expense_other:
+  name: Other
+  internal_name: other
+  kind: Expense
+  
+paychecks:
+  name: Paychecks
+  internal_name: paychecks
+  kind: Income
+
+income_gifts:
+  name: Gifts
+  internal_name: gifts
+  kind: Income
+
+refunds:
+  name: Refunds
+  internal_name: refunds
+  kind: Income
+
+loans:
+  name: Loan
+  internal_name: loan
+  kind: Income
+
+income_other:
+  name: Other
+  internal_name: other
+  kind: Income
+
+withdraw_atm:
+  name: ATM
+  internal_name: atm_withdraw
+  kind: Withdraw
+
+deposit:
+  name: Deposit
+  internal_name: eposit
+  kind: Deposit
+
+checking:
+  name: Checking
+  internal_name: checking
+  kind: Account
+
+savings:
+  name: Savings
+  internal_name: savings
+  kind: Account
+
+cash:
+  name: Cash
+  internal_name: cash
+  kind: Account
+
+
+
+
+

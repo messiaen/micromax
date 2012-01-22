@@ -1,0 +1,20 @@
+<h1>Editing account</h1>
+
+<table>
+	<tr>
+		<td><%= render 'form' %></td>
+		<td><%= render 'add_remove_users' %></td>
+	</tr>
+</table>
+
+<%= link_to 'Show', @account %> |
+<%= link_to 'Back', accounts_path %>
+
+
+<style type="text/css">
+
+table td {
+	vertical-align: top;
+}
+
+</style>

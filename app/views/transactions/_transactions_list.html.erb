@@ -1,0 +1,33 @@
+			
+			<% @transactions.each do |transaction| %>
+			<tr>
+				<td><%= transaction.date.strftime("%b %d %Y") %></td>
+				<td><%= transaction.description %></td>
+				
+				<% if transaction.amount < 0 %>
+				  <td style="color: red; text-align: right;"><%= sprintf("-$%0.2f", transaction.amount * -1) %></td>
+				<% else %>
+					<td style="text-align: right;"><%= sprintf("$%0.2f", transaction.amount) %></td>
+				<% end %>
+				
+				<%= yield transaction %>
+				
+				<td><%= transaction.category.name %></td>
+				<td><%= transaction.person ? transaction.person.name : "" %></td>
+				
+				<% if current_user.is_admin? %>
+					<td><%= link_to 'Delete', transaction, :confirm => 'Are you sure?', :method => :delete %></td>
+				<% else %>
+					<td><%= link_to "Edit", edit_transaction_path(transaction) %></td>
+				<% end %>
+			</tr>
+			<% end %>
+			
+			<tr style="height: 10px;"></tr>
+
+<style type="text/css">
+	table td, table th {
+		padding-right: 20px;
+		text-align: left;
+	}
+</style>

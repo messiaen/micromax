@@ -1,0 +1,26 @@
+<% if flash[:error] %>
+	<h5><%= flash[:error] %></h5>
+<% end %>
+
+
+<%= form_for :person, :url => people_path do |f| %>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :username, "Choose Username" %><br />
+    <%= f.text_field :username %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+  	<%= label_tag :confirm, "Confirm Password" %><br />
+  	<%= f.password_field :confirm %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
