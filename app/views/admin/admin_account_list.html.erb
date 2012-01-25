@@ -1,0 +1,35 @@
+<h1>Listing Accounts</h1>
+
+<table>
+	<tr>
+		<th>Account</th>
+		<th>People</th>
+	</tr>
+	<% Account.all.each do |account| %>
+	<tr>
+		<td><%= account.name %></td>
+		<td>
+			<table>
+				<% account.people.each do |person| %>
+				<tr>
+					<td><%= person.name %></td>
+				</tr>
+				<% end %>
+			</table>
+		</td>
+		<td><%= link_to "Edit", :contoller => "admin", :action => "edit_account", :account_id => account.id %></td>
+		<td><%= link_to 'Delete', account, :confirm => 'Are you sure?', :method => :delete %></td>
+	</tr>
+	<% end %>
+	<tr>
+		<td><%= link_to "New Account", new_account_path %></td>
+	</tr>
+</table>
+
+<style type="text/css">
+	table th, table td {
+		vertical-align: top;
+		text-align: left;
+	}
+</style>
+

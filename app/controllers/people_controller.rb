@@ -4,6 +4,8 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.json
   def index
+    unless admin_logged_in then return end
+    
     @people = Person.all
 
     respond_to do |format|
@@ -15,6 +17,8 @@ class PeopleController < ApplicationController
   # GET /people/1
   # GET /people/1.json
   def show
+    unless admin_logged_in then return end
+    
     @person = Person.find(params[:id])
 
     respond_to do |format|
@@ -26,6 +30,8 @@ class PeopleController < ApplicationController
   # GET /people/new
   # GET /people/new.json
   def new
+    unless admin_logged_in then return end
+    
     @person = Person.new()
 
     respond_to do |format|
@@ -37,11 +43,20 @@ class PeopleController < ApplicationController
   # GET /people/1/edit
   def edit
     @person = Person.find(params[:id])
+    
+    unless current_user.id == @person.id
+      flash[:error] = "Users can only edit their own profile"
+      redirect_to :back
+      return
+    end
+    
   end
 
   # POST /people
   # POST /people.json
   def create
+    unless admin_logged_in then return end
+    
     confirm = params[:person][:confirm]
     params[:person].delete(:confirm)
     
@@ -87,6 +102,13 @@ class PeopleController < ApplicationController
     @person  = Person.find(params[:id])
     @profile = @person.profile
     
+    
+    unless current_user.id == @person.id
+      flash[:error] = "Users can only edit their own profile"
+      redirect_to :back
+      return
+    end
+    
     categories = params[:profile].delete(:categories)
     
     @profile.categories = Category.where(:id => categories)
@@ -106,10 +128,22 @@ class PeopleController < ApplicationController
   
   def edit_password
     @person = Person.find(params[:id])
+    
+    unless current_user.id == @person.id
+      flash[:error] = "Users can only edit their own password"
+      redirect_to :back
+      return
+    end
   end
   
   def update_password
     @person = Person.find(params[:id])
+    
+    unless current_user.id == @person.id
+      flash[:error] = "Users can only edit their own profile"
+      redirect_to :back
+      return
+    end
     
     if Person.authenticate(@person.username, params[:person][:old_password]) &&
         params[:person][:password] == params[:person][:confirm]
@@ -130,6 +164,8 @@ class PeopleController < ApplicationController
   # DELETE /people/1
   # DELETE /people/1.json
   def destroy
+    unless admin_logged_in then return end
+    
     @person = Person.find(params[:id])
     @person.destroy
 

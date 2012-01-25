@@ -25,6 +25,7 @@ Budget::Application.routes.draw do
   match "/admin" => "admin#admin"
   match "/admin/update_accounts_users" => "admin#update_accounts_users"
   match "/admin/edit_account" => "admin#edit_account"
+  match "/admin/account_list" => "admin#admin_account_list"
   
   match "/people/:id/edit_password" => "people#edit_password"
   match "/people/:id/update_password" => "people#update_password"

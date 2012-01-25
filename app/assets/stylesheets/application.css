@@ -5,3 +5,8 @@
  *= require_self
  *= require_tree . 
 */
+
+
+#nav_bar table td {
+	padding: 0;
+}

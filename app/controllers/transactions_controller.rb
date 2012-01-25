@@ -27,6 +27,7 @@ class TransactionsController < ApplicationController
   # GET /transactions/new
   # GET /transactions/new.json
   def new
+    unless user_logged_in then return end
     @transaction = Transaction.new
 
     respond_to do |format|
@@ -37,12 +38,15 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/1/edit
   def edit
+    unless user_logged_in then return end
     @transaction = Transaction.find(params[:id])
   end
 
   # POST /transactions
   # POST /transactions.json
   def create
+    unless user_logged_in then return end
+    
     @transaction = Account.find(params[:transaction][:account_id]).last_transaction
     
     respond_to do |format|
@@ -57,6 +61,7 @@ class TransactionsController < ApplicationController
   # PUT /transactions/1
   # PUT /transactions/1.json
   def update
+    unless user_logged_in then return end
     @transaction = Transaction.find(params[:id])
 
     respond_to do |format|
@@ -73,7 +78,7 @@ class TransactionsController < ApplicationController
   # DELETE /transactions/1
   # DELETE /transactions/1.json
   def destroy
-    unless admin_only then return end
+    unless admin_logged_in then return end
     
     @transaction = Transaction.find(params[:id])
     

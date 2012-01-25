@@ -2,6 +2,8 @@ class AccountsController < ApplicationController
   # GET /accounts
   # GET /accounts.json
   def index
+    unless user_logged_in then return end
+    
     @accounts = Account.all
 
     respond_to do |format|
@@ -13,6 +15,8 @@ class AccountsController < ApplicationController
   # GET /accounts/1
   # GET /accounts/1.json
   def show
+    unless user_logged_in then return end
+    
     @account = Account.find(params[:id])
     
     @start_date = Date.today - 60.days
@@ -33,11 +37,15 @@ class AccountsController < ApplicationController
   end
   
   def withdraw
+    unless user_logged_in then return end
+    
     @account = Account.find(params[:id])
     @transaction = Withdraw.new(:description => "ATM Withdraw")
   end
   
   def make_withdraw
+    unless user_logged_in then return end
+    
     @account = Account.find(params[:id])
     
     if @account.category.internal_name == "cash"
@@ -60,11 +68,15 @@ class AccountsController < ApplicationController
   end
   
   def deposit
+    unless user_logged_in then return end
+    
     @account = Account.find(params[:id])
     @transaction = Deposit.new
   end
   
   def make_deposit
+    unless user_logged_in then return end
+    
     @account = Account.find(params[:id])
     @transaction = Deposit.new
     
@@ -84,6 +96,8 @@ class AccountsController < ApplicationController
   # GET /accounts/new
   # GET /accounts/new.json
   def new
+    unless admin_logged_in then return end
+    
     @account = Account.new
 
     respond_to do |format|
@@ -94,6 +108,8 @@ class AccountsController < ApplicationController
 
   # GET /accounts/1/edit
   def edit
+    unless admin_logged_in then return end
+    
     @account = Account.find(params[:id])
     
     @people_to_add = Person.all.select do |person|
@@ -105,6 +121,8 @@ class AccountsController < ApplicationController
   # POST /accounts
   # POST /accounts.json
   def create
+    unless admin_logged_in then return end
+    
     people_ids = params[:account].delete(:people)
     @account = Account.new(params[:account])
     
@@ -128,6 +146,8 @@ class AccountsController < ApplicationController
   # PUT /accounts/1
   # PUT /accounts/1.json
   def update
+    unless admin_logged_in then return end
+    
     @account = Account.find(params[:id])
 
     respond_to do |format|
@@ -142,6 +162,8 @@ class AccountsController < ApplicationController
   end
   
   def add_remove_users
+    unless admin_logged_in then return end
+    
     add_people    = params[:account][:add_people] || []
     remove_people = params[:account][:remove_people] || []
     
@@ -163,7 +185,6 @@ class AccountsController < ApplicationController
   end
   
   def get_transactions
-    
     @account = Account.find(params[:id])
     
     @start_date = if params[:transactions_list][:start_date].nil? || 
@@ -196,11 +217,13 @@ class AccountsController < ApplicationController
   # DELETE /accounts/1
   # DELETE /accounts/1.json
   def destroy
+    unless admin_logged_in then return end
+    
     @account = Account.find(params[:id])
     @account.destroy
 
     respond_to do |format|
-      format.html { redirect_to accounts_url }
+      format.html { redirect_to "/admin" }
       format.json { head :ok }
     end
   end

@@ -7,8 +7,8 @@
 	</tr>
 </table>
 
-<%= link_to 'Show', @account %> |
-<%= link_to 'Back', accounts_path %>
+<%= link_to 'Back', "/admin" %><br />
+<%= link_to 'Delete This Account', @account, :confirm => 'Are you sure?', :method => :delete %>
 
 
 <style type="text/css">

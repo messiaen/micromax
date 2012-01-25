@@ -1,6 +1,8 @@
 class ExpensesController < TransactionsController
   
   def new
+    unless user_logged_in then return end
+    
     @transaction = Expense.new
     
     render :contoller => :transactions, :action => :new
