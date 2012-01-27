@@ -19,13 +19,12 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :min_balance %><br />
-    <%= f.number_field :min_balance %>
-  </div>
-  <div class="field">
     <%= f.label :category_id %><br />
-    <%= f.collection_select(:category_id, Category.where(:kind => "Account"), :id, :name) %>
+    <%= f.collection_select(:category_id, Category.where(:kind => @account.type), :id, :name) %>
   </div>
+  
+  <%= yield f %>
+  
   <div class="actions">
     <%= f.submit %>
   </div>

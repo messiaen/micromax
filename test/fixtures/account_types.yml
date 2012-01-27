@@ -1,9 +1,1 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-checking:
-  name: Checking
-  internal_name: checking
-
-savings:
-  name: Savings
-  internal_name: savings

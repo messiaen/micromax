@@ -13,6 +13,7 @@ class Transaction < ActiveRecord::Base
   validates_presence_of :category_id
   validates_presence_of :amount
   validates_presence_of :date
+  validates_presence_of :account_id
   
   def self.insert_transaction(transaction, params)
     account = Account.find(params[:account_id])
@@ -32,7 +33,7 @@ class Transaction < ActiveRecord::Base
     
     
     unless transaction.save
-      #raise Exception, "!!!"
+      raise Exception, "#{transaction.errors.full_messages}"
       return false
     end
     
@@ -40,7 +41,7 @@ class Transaction < ActiveRecord::Base
       parent.child_id = transaction.id
       
       unless parent.save
-        #raise Exception, "!!!"
+        raise Exception, "!!!"
         return false
       end
     end
@@ -49,7 +50,7 @@ class Transaction < ActiveRecord::Base
       child.parent_id = transaction.id
       
       unless child.save
-        #raise Exception, "!!!"
+        raise Exception, "!!!"
         return false
       end
     end
@@ -88,6 +89,15 @@ class Transaction < ActiveRecord::Base
     
     Transaction.insert_transaction(@transaction, params)
     
+  end
+  
+  def self.sum(transactions)
+    sum = 0
+    transactions.each do |transaction|
+      sum += transaction.amount || 0
+    end
+    
+    return sum
   end
   
   def negative_amount

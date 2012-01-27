@@ -1,0 +1,3 @@
+class CashAccount < Account
+  
+end

@@ -10,3 +10,9 @@
 #nav_bar table td {
 	padding: 0;
 }
+
+table th,
+table td {
+	text-align: left;
+	vertical-align: top;
+}

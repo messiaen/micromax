@@ -1,4 +1,4 @@
-<h3>Record Withdraw from <%= @account.name %></h3>
+<h3>Record Deposit to <%= @account.name %></h3>
 
 <%= form_for @transaction, :url => "/accounts/#{@account.id}/make_deposit" do |f| %>
   <% if @transaction.errors.any? %>
@@ -47,7 +47,10 @@
       <td colspan="2" align="right">
         <div class="field">
           <%= f.label :category %>
-          <%= f.collection_select :category_id, Category.where(:kind => @transaction.type), :id, :name %>
+          <%= f.select( 
+          			:category_id, 
+          			Category.where(:kind => @transaction.type).map {|t| [t.name, t.id]},
+          			:selected => current_user.categories.where(:kind => @transaction.type).first.id) %>
         </div>
       </td>
       <td align="right">

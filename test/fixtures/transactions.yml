@@ -1,16 +1,2 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-paycheck:
-  date: 2011-12-31
-  amount: 1025
-  description: Paycheck
-  category: paychecks
-  type: Income
-
-gas_expence:
-  date: 2011-12-30
-  amount: 36.45
-  description: Exxon
-  category: gas
-  type: Expense
   

@@ -1,4 +1,6 @@
 class AccountsController < ApplicationController
+  include SessionsHelper
+  
   # GET /accounts
   # GET /accounts.json
   def index
@@ -113,7 +115,7 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:id])
     
     @people_to_add = Person.all.select do |person|
-      !@account.people.include?(person)
+      !@account.people.include?(person) && !person.is_admin?
     end
     
   end
@@ -129,9 +131,7 @@ class AccountsController < ApplicationController
     respond_to do |format|
       if @account.save
         
-        people_ids.map {|id| Person.find(id)}.each do |person|
-          @account.people << person
-        end
+        add_people(@account, people_ids)
         
         
         format.html { redirect_to "/admin", :notice => 'Account was successfully created.' }
@@ -139,6 +139,14 @@ class AccountsController < ApplicationController
       else
         format.html { render :action => "new" }
         format.json { render :json => @account.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+  
+  def add_people(account, people_ids)
+    people_ids.map {|id| Person.find(id)}.each do |person|
+      unless person.is_admin?
+        account.people << person
       end
     end
   end
@@ -152,7 +160,7 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.update_attributes(params[:account])
-        format.html { redirect_to @account, :notice => 'Account was successfully updated.' }
+        format.html { redirect_to "/admin", :notice => 'Account was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }

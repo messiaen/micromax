@@ -64,6 +64,11 @@ expense_other:
   name: Other
   internal_name: other
   kind: Expense
+
+expense_payment:
+  name: Payment
+  internal_name: payment
+  kind: Expense
   
 paychecks:
   name: Paychecks
@@ -95,25 +100,52 @@ withdraw_atm:
   internal_name: atm_withdraw
   kind: Withdraw
 
+withdraw_payment:
+  name: Payment
+  internal_name: payment
+  kind: Withdraw
+
 deposit:
   name: Deposit
-  internal_name: eposit
+  internal_name: deposit
+  kind: Deposit
+  
+deposit_payment:
+  name: Payment
+  internal_name: payment
   kind: Deposit
 
 checking:
   name: Checking
   internal_name: checking
-  kind: Account
+  kind: BankAccount
 
 savings:
   name: Savings
   internal_name: savings
-  kind: Account
+  kind: BankAccount
 
 cash:
   name: Cash
   internal_name: cash
-  kind: Account
+  kind: CashAccount
+
+special:
+  name: Special
+  internal_name: special
+  kind: CashAccount
+
+credit_card:
+  name: Credit Card
+  internal_name: credit_card
+  kind: CreditCardAccount
+
+loan:
+  name: Load
+  internal_name: loan
+  kind: CreditAccount
+
+
 
 
 

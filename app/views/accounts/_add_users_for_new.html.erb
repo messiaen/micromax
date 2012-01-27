@@ -3,7 +3,14 @@
 	<tr>
 		<td style="vertical-align: top;">
 			<b><%= label_tag :add, "People to Add" %></b><br />
-			<%= collection_select(:account, :people, Person.all, :id, :name, {}, :multiple => true) %>
+			<%= collection_select(
+						:account, 
+						:people, 
+						Person.all.select {|person| !person.is_admin?}, 
+						:id, 
+						:name, 
+						{}, 
+						:multiple => true) %>
 		</td>
 	</tr>
 	

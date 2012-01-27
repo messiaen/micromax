@@ -1,15 +1,20 @@
-Budget::Application.routes.draw do
+ParakeetBudget::Application.routes.draw do
   resources :profiles
 
   resources :people
 
   resources :accounts
+  resources :bank_accounts
+  resources :credit_card_accounts
+  resources :cash_accounts
 
   resources :transactions
   resources :expenses
   resources :incomes
   resources :withdraws
   resources :deposits
+  
+  
   
   resource :sessions, :only => [:new, :create, :destroy]
   
@@ -21,6 +26,8 @@ Budget::Application.routes.draw do
   match "/accounts/:id/make_deposit" => "accounts#make_deposit"
   match "/accounts/:id/add_remove_users" => "accounts#add_remove_users"
   match "/accounts/:id/get_transactions" => "accounts#get_transactions"
+  match "/accounts/:id/pay_account" => "credit_accounts#pay_account"
+  match "/accounts/:id/make_payment" => "credit_accounts#make_payment"
   
   match "/admin" => "admin#admin"
   match "/admin/update_accounts_users" => "admin#update_accounts_users"

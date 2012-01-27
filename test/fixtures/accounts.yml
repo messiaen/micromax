@@ -1,15 +1,1 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-tower:
-  name: Tower Federal Checking
-  min_balance: 10
-  category: checking
-
-tower_savings:
-  name: Tower Federal Savings
-  min_balance: 5
-  category: savings
-  
-cash:
-  name: Cash
-  min_balance: 0
-  category: cash

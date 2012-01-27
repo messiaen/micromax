@@ -14,5 +14,9 @@ class Account < ActiveRecord::Base
   def balance
     self.last_transaction ? self.last_transaction.account_balance : 0
   end
+  
+  def pay
+    return
+  end
 
 end

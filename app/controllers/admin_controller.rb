@@ -10,7 +10,7 @@ class AdminController < ApplicationController
     @account = Account.find(params[:account][:account_id])
     @person  = Person.find(params[:person][:person_id])
     
-    if !@account.people.include?(@person)
+    if !@account.people.include?(@person) && !@person.is_admin?
       @account.people << @person
       
       flash[:notice] = "'#{@person.name}' has been added to '#{@account.name}'"

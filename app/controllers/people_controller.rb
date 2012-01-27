@@ -117,7 +117,7 @@ class PeopleController < ApplicationController
     
     respond_to do |format|
       if @person.update_attributes(params[:person])
-        format.html { redirect_to @person, :notice => 'Person was successfully updated.' }
+        format.html { redirect_to :back, :notice => 'Person was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
