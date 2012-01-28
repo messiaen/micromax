@@ -3,11 +3,13 @@ class ApplicationController < ActionController::Base
   
   protect_from_forgery
   
-  #before_filter :authenticate
+  before_filter :authenticate
   
   def authenticate
     if !Person.find_by_id(session[:user_id])
       reset_session
+      
+      session[:return_to] = request.fullpath
       
       flash[:error] = "Please Login"
       redirect_to :root

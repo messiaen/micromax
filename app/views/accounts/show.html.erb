@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<%= render :partial => "/layouts/flash_display.html"%>
 
 <table style="vertical-align: bottom">
 	<tr>
@@ -37,7 +37,7 @@
 		<table>
 			<%= render :partial => "transactions/transactions_list_header" %>
 	
-			<%= render :partial => "/transactions/transactions_list" %>
+			<%= render :partial => "/transactions/transactions_list", :locals => {:transactions => @transactions} %>
 		</table>
 	</div>
 	
@@ -60,13 +60,3 @@
 	</table>
 	
 </div>
-
-<style type="text/css">
-
-</style>
-
-<script type="text/javascript">
-	$(document).ready(function () {
-			$(".date_popup").datepicker();
-	});
-</script>

@@ -1,5 +1,7 @@
 <h1>New Credit Account</h1>
 
+<%= render :partial => "/layouts/flash_display.html"%>
+
 		<%= render :layout => '/accounts/form_for_new.html' do |f| %>
 			<div class="field">
 				<%= label_tag "Credit Limit", "Credit Limit" %><br />

@@ -1,2 +1,2 @@
 $("#transactions_list").html("<table><%= escape_javascript render(:partial => "/transactions/transactions_list_header.html") %>" + 
-	"<%= escape_javascript render(:partial => '/transactions/transactions_list.html') %></table>");
+	"<%= escape_javascript render(:partial => '/transactions/transactions_list.html', :locals => {:transactions => @transactions}) %></table>");

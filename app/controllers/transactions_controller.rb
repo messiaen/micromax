@@ -2,15 +2,55 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
-    @transactions = Transaction.order(
-      "date asc, created_at asc").where(
-        "date >= ? AND date <= ?", 
-        Date.today - 60.days, Date.today + 7.days)
+    @transactions = {
+      :all => Transaction.order(
+        "date asc, created_at asc").where(
+          "date >= ? AND date <= ?", 
+          Date.today - 60.days, Date.today + 7.days),
+      
+      :expenses => Expense.order(
+        "date asc, created_at asc").where(
+          "date >= ? AND date <= ?", 
+          Date.today - 60.days, Date.today + 7.days),
+      
+      :incomes => Income.order(
+        "date asc, created_at asc").where(
+          "date >= ? AND date <= ?", 
+          Date.today - 60.days, Date.today + 7.days),
+      
+      :withdraws => Withdraw.order(
+        "date asc, created_at asc").where(
+          "date >= ? AND date <= ?", 
+          Date.today - 60.days, Date.today + 7.days),
+      
+      :deposits => Deposit.order(
+        "date asc, created_at asc").where(
+          "date >= ? AND date <= ?", 
+          Date.today - 60.days, Date.today + 7.days)
+    }
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @transactions }
     end
+  end
+  
+  def sort_transactions
+    @kind = params[:transaction_type]
+    
+    if @kind == "All"
+      @transactions = Transaction.order(
+        "date asc, created_at asc").where(
+          "date >= ? AND date <= ?",
+          Date.today - 60.days, Date.today + 7.days)
+    else
+      @transactions = Transaction.order(
+        "date asc, created_at asc").where(
+          :type => @kind).where(
+            "date >= ? AND date <= ?",
+            Date.today - 60.days, Date.today + 7.days)
+    end
+      
   end
 
   # GET /transactions/1

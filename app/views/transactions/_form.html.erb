@@ -24,7 +24,7 @@
   	  <td>
   	    <div class="field">
           <%= f.label :date %><br />
-          <%= f.text_field :date, :class => "date_popup" %>
+          <%= f.text_field :date, :class => "date_popup", :value => @transaction.date.to_s %>
         </div>
       </td>
   	  <td>
@@ -36,7 +36,7 @@
       <td>
         <div class="field">
     	  <%= f.label :amount %><br />
-    	  $<%= f.number_field :amount %>
+    	  $<%= f.number_field :amount, :value => Format.to_2f(@transaction.amount) %>
   		</div>
   	  </td>
     </tr>
@@ -68,11 +68,4 @@
     </tr>
   </table>
 <% end %>
-
-<script type="text/javascript">
-<!--
-	$(".date_popup").datepicker();
-//-->
-
-</script>
 

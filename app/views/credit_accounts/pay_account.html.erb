@@ -1,6 +1,8 @@
 <%= form_for @account, :url => "/accounts/#{@account.id}/make_payment" do |f| %>
 <h1>Record a payment on: <%= @account.name %></h1>
 
+<%= render :partial => "/layouts/flash_display.html"%>
+
 	<table>
 		<tr>
 			<th>Pay from</th>
@@ -17,7 +19,6 @@
 							current_user.accounts.where(
 								:type => ["CashAccount", "BankAccount"]
 							).map{|account| [account.name, account.id]},
-							{},
 							:selected => current_user.default_account.id) %>
 			</td>
 			<td><%= text_field_tag :date, "", :name => "payment[date]", :class => "date_popup" %></td>

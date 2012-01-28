@@ -1,4 +1,4 @@
-ParakeetBudget::Application.routes.draw do
+MicroMax::Application.routes.draw do
   resources :profiles
 
   resources :people
@@ -8,7 +8,11 @@ ParakeetBudget::Application.routes.draw do
   resources :credit_card_accounts
   resources :cash_accounts
 
-  resources :transactions
+  resources :transactions do
+    collection do
+      get 'sort_transactions'
+    end
+  end
   resources :expenses
   resources :incomes
   resources :withdraws
@@ -28,6 +32,8 @@ ParakeetBudget::Application.routes.draw do
   match "/accounts/:id/get_transactions" => "accounts#get_transactions"
   match "/accounts/:id/pay_account" => "credit_accounts#pay_account"
   match "/accounts/:id/make_payment" => "credit_accounts#make_payment"
+  
+  match "/transactions/sort_transactions" => "transactions#sort_transactions"
   
   match "/admin" => "admin#admin"
   match "/admin/update_accounts_users" => "admin#update_accounts_users"

@@ -1,4 +1,5 @@
 require 'search.rb'
+require 'format.rb'
 
 class Transaction < ActiveRecord::Base
   belongs_to :category
@@ -98,6 +99,10 @@ class Transaction < ActiveRecord::Base
     end
     
     return sum
+  end
+  
+  def date_string
+    Fromat.date(self.date)
   end
   
   def negative_amount

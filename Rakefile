@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-ParakeetBudget::Application.load_tasks
+MicroMax::Application.load_tasks

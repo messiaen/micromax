@@ -1,5 +1,5 @@
 			
-			<% @transactions.each do |transaction| %>
+			<% transactions.each do |transaction| %>
 			<tr>
 				<td style="text-align: left; vertical-align: top; padding-right: 20px;"><%= transaction.date.strftime("%b %d %Y") %></td>
 				<td><%= transaction.description %></td>

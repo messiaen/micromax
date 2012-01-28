@@ -1,9 +1,21 @@
-			<tr style="height: 2px;"></tr>
-			<tr>
-				<th style="text-align: left; vertical-align: left; padding-right: 20px;">Date</th>
-				<th style="text-align: left; vertical-align: left; padding-right: 20px;">Description</th>
-				<th style="text-align: left; vertical-align: left; padding-right: 20px;">Amount</th>
-				<%= yield %>
-				<th style="text-align: left; vertical-align: left; padding-right: 20px;">Category</th>
-				<th style="text-align: left; vertical-align: left; padding-right: 20px;">Person</th>
-			</tr>
+<tr style="height: 2px;"></tr>
+<tr>
+	<th style="text-align: left; vertical-align: left; padding-right: 20px;">
+		<%= link_to "Date", "#", :class => "sort_field" %>
+	</th>
+	<th style="text-align: left; vertical-align: left; padding-right: 20px;">
+		<%= link_to "Description", "#", :class => "sort_field" %>
+	</th>
+	<th style="text-align: left; vertical-align: left; padding-right: 20px;">
+		<%= link_to "Amount", "#", :class => "sort_field" %>
+	</th>
+	
+	<%= yield %>
+	
+	<th style="text-align: left; vertical-align: left; padding-right: 20px;">
+		<%= link_to "Category", "#", :class => "sort_field" %>
+	</th>
+	<th style="text-align: left; vertical-align: left; padding-right: 20px;">
+		<%= link_to "Person", "#", :class => "sort_field" %>
+	</th>
+</tr>

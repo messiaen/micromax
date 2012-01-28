@@ -10,5 +10,5 @@
 
 
 $(document).ready(function () {
-	$(".date_popup").datepicker();
+	$(".date_popup").datepicker({dateFormat: 'M dd yy'});
 });
