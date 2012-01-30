@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120125193725) do
+ActiveRecord::Schema.define(:version => 20120129055222) do
 
   create_table "account_types", :force => true do |t|
     t.string   "name"
@@ -76,5 +76,9 @@ ActiveRecord::Schema.define(:version => 20120125193725) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "transactions", ["child_id"], :name => "index_transactions_on_child_id"
+  add_index "transactions", ["date"], :name => "index_transactions_on_date"
+  add_index "transactions", ["parent_id"], :name => "index_transactions_on_parent_id"
 
 end
