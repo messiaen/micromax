@@ -1,1 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+cash:
+  name: Cash
+  min_balance: 0
+  category: cash
