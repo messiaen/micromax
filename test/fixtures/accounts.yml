@@ -3,3 +3,4 @@ cash:
   name: Cash
   min_balance: 0
   category: cash
+  type: CashAccount
