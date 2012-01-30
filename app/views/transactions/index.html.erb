@@ -3,11 +3,11 @@
 <div id="transactions_list">
 	
 	<ul>
-		<li><a href="#all">All</a>
-		<li><a href="#expenses">Expenses</a></li>
-		<li><a href="#incomes">Incomes</a></li>
-		<li><a href="#withdraws">Withdraws</a></li>
-		<li><a href="#deposits">Deposits</a></li>
+		<li><a href="#all" class="tab">All</a>
+		<li><a href="#expenses" class="tab">Expenses</a></li>
+		<li><a href="#incomes" class="tab">Incomes</a></li>
+		<li><a href="#withdraws" class="tab">Withdraws</a></li>
+		<li><a href="#deposits" class="tab">Deposits</a></li>
 	</ul>
 	
 	<% @transactions.each_pair do |key, value| %>
@@ -25,8 +25,16 @@
 	
 </div>
 
+<style type="text/css">
+	#transactions_list a.tab:hover {
+		background-color: #ffff00;
+	}
+</style>
+
 <script type="text/javascript">
+<!--
 	$(document).ready(function () {
 		$("#transactions_list").tabs();
 	});
+//-->
 </script>

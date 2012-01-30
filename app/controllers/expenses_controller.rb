@@ -20,7 +20,7 @@ class ExpensesController < TransactionsController
     respond_to do |format|
       if Transaction.insert_transaction(@transaction, params[:expense])
         
-        flash[:notice] = "Expense Entered.  New Balance for '#{@account.name}': #{@account.balance}"
+        flash[:notice] = "Expense Entered.  New Balance for '#{@account.name}': #{@account.balance_string}"
         format.html {redirect_to :back }
       else
         flash[:error] = "Error entering expense"

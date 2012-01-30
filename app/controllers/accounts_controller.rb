@@ -214,7 +214,7 @@ class AccountsController < ApplicationController
     end
     
     @transactions = @account.transactions.order(
-                      "date asc, created_at asc"
+                      "date desc, created_at desc"
                     ).where(
                       "date >= ? AND date <= ?",
                       @start_date,

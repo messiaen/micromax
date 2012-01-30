@@ -4,27 +4,27 @@ class TransactionsController < ApplicationController
   def index
     @transactions = {
       :all => Transaction.order(
-        "date asc, created_at asc").where(
+        "date desc, created_at desc").where(
           "date >= ? AND date <= ?", 
           Date.today - 60.days, Date.today + 7.days),
       
       :expenses => Expense.order(
-        "date asc, created_at asc").where(
+        "date desc, created_at desc").where(
           "date >= ? AND date <= ?", 
           Date.today - 60.days, Date.today + 7.days),
       
       :incomes => Income.order(
-        "date asc, created_at asc").where(
+        "date desc, created_at desc").where(
           "date >= ? AND date <= ?", 
           Date.today - 60.days, Date.today + 7.days),
       
       :withdraws => Withdraw.order(
-        "date asc, created_at asc").where(
+        "date desc, created_at desc").where(
           "date >= ? AND date <= ?", 
           Date.today - 60.days, Date.today + 7.days),
       
       :deposits => Deposit.order(
-        "date asc, created_at asc").where(
+        "date desc, created_at desc").where(
           "date >= ? AND date <= ?", 
           Date.today - 60.days, Date.today + 7.days)
     }
@@ -40,12 +40,12 @@ class TransactionsController < ApplicationController
     
     if @kind == "All"
       @transactions = Transaction.order(
-        "date asc, created_at asc").where(
+        "date desc, created_at desc").where(
           "date >= ? AND date <= ?",
           Date.today - 60.days, Date.today + 7.days)
     else
       @transactions = Transaction.order(
-        "date asc, created_at asc").where(
+        "date desc, created_at desc").where(
           :type => @kind).where(
             "date >= ? AND date <= ?",
             Date.today - 60.days, Date.today + 7.days)
@@ -131,7 +131,7 @@ class TransactionsController < ApplicationController
     end
     
     if parent
-      parent.child_id = child.id
+      parent.child_id = child ? child.id : nil
       parent.save
       
       Transaction.propagate_balances(parent)

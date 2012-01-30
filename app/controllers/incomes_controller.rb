@@ -18,7 +18,7 @@ class IncomesController < TransactionsController
     
     respond_to do |format|
       if Transaction.insert_transaction(@transaction, params[:income])
-        flash[:notice] = "Income Created.  New Balance for '#{@account.name}': #{@account.balance}"
+        flash[:notice] = "Income Created.  New Balance for '#{@account.name}': #{@account.balance_string}"
         format.html {redirect_to :back}
       else
         flash[:error] = "Error creating Income"

@@ -36,7 +36,7 @@
       <td>
         <div class="field">
     	  <%= f.label :amount %><br />
-    	  $<%= f.number_field :amount, :value => Format.to_2f(@transaction.amount) %>
+    	  $<%= f.text_field :amount, :value => Format.to_2f(@transaction.amount) %>
   		</div>
   	  </td>
     </tr>

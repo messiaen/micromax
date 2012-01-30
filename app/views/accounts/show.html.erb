@@ -22,10 +22,7 @@
 	</tr>
 	<tr style="height: 10px;"></tr>
 	<tr>
-		<td><%= link_to "Record Withdraw", "/accounts/#{@account.id}/withdraw" %></td>
-	</tr>
-	<tr>
-		<td><%= link_to "Record Deposit", "/accounts/#{@account.id}/deposit" %></td>
+	  <%= render :partial => "/#{@account.type.to_s.underscore}s/options", :locals => {:account => @account} %>
 	</tr>
 </table>
 

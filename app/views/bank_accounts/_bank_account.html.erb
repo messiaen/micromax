@@ -6,5 +6,4 @@
     <td><%= account.balance_string %></td>
     <% end %>
     
-    <td><%= link_to "Record Deposit", "/accounts/#{account.id}/deposit" %></td>
-    <td><%= link_to "Record Withdraw", "/accounts/#{account.id}/withdraw" %></td>
+    <%= render :partial => "/#{account.type.to_s.underscore}s/options", :locals => {:account => account} %>

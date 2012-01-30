@@ -19,6 +19,7 @@ class Transaction < ActiveRecord::Base
   def self.insert_transaction(transaction, params)
     account = Account.find(params[:account_id])
     transactions = account.transactions.order("date asc")
+    #transactions = LinkedRecordIterator.new(account.transactions)
     
     transaction.date        = params[:date]
     transaction.amount      = params[:amount]
@@ -27,6 +28,21 @@ class Transaction < ActiveRecord::Base
     transaction.person_id   = params[:person_id]
     
     parent, child = Search.find_around(transactions, transaction, "date")
+    
+    if parent
+      while (p = parent.child) && p.date == parent.date
+        parent = p
+      end
+    end
+    
+    if child
+      while (c = child.parent) && c.date == child.date
+        child = c
+      end
+    end
+    
+    puts "PARENT #{parent ? parent.id : 'nil'}"
+    puts "CHILD #{child ? child.id : 'nil'}"
     
     transaction.parent_id  = parent ? parent.id : nil
     transaction.account_id = account.id
