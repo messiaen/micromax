@@ -46,18 +46,28 @@ technology:
   kind: Expense
 
 dining:
-  name: Dining and Entertainment
+  name: Dining and Leisure
   internal_name: dinning
   kind: Expense
 
 travel:
-  name: Travel
-  internal_name: travel
+  name: Vacation
+  internal_name: vacation
   kind: Expense
 
 expense_gifts:
   name: Gifts
   internal_name: gifts
+  kind: Expense
+
+media:
+  name: Books and Media
+  internal_name: media
+  kind: Expense
+
+entertainment:
+  name: Entertainment
+  internal_name: entertainment
   kind: Expense
   
 expense_other:
@@ -71,17 +81,17 @@ expense_payment:
   kind: Expense
   
 paychecks:
-  name: Paychecks
+  name: Paycheck
   internal_name: paychecks
   kind: Income
 
 income_gifts:
-  name: Gifts
+  name: Gift
   internal_name: gifts
   kind: Income
 
 refunds:
-  name: Refunds
+  name: Refund
   internal_name: refunds
   kind: Income
 
@@ -97,12 +107,22 @@ income_other:
 
 withdraw_atm:
   name: ATM
-  internal_name: atm_withdraw
+  internal_name: atm
   kind: Withdraw
 
 withdraw_payment:
   name: Payment
   internal_name: payment
+  kind: Withdraw
+
+withdraw_transfer:
+  name: Transfre
+  internal_name: transfer
+  kind: Withdraw
+
+withdraw_other:
+  name: Other
+  internal_name: other
   kind: Withdraw
 
 deposit:
@@ -115,6 +135,11 @@ deposit_payment:
   internal_name: payment
   kind: Deposit
 
+deposit_transfer:
+  name: Transfer
+  internal_name: transfer
+  kind: Deposit
+
 checking:
   name: Checking
   internal_name: checking
@@ -125,14 +150,24 @@ savings:
   internal_name: savings
   kind: BankAccount
 
+bank_account_other:
+  name: Other
+  internal_name: account_other
+  kind: BankAccount
+
 cash:
   name: Cash
   internal_name: cash
   kind: CashAccount
 
 special:
-  name: Special
-  internal_name: special
+  name: Gift Card
+  internal_name: gift_card
+  kind: CashAccount
+
+cash_account_other:
+  name: Other
+  internal_name: account_other
   kind: CashAccount
 
 credit_card:
