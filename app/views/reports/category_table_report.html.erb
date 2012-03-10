@@ -1,0 +1,79 @@
+<h1><%= @report_title %></h1>
+
+<div id="transactions_list">
+	
+	<ul>
+		<li><a href="#all" class="tab">All</a>
+		<% @categories.each do |c| %>
+			<li><a href="#<%=c.internal_name%>" class="tab"><%=c.name%></a>
+		<% end %>
+	</ul>
+	
+	<% sum = Transaction.sum(@transactions).abs %>
+		<table id="all" style="background: #e6e6e6;">
+			
+			<tr>
+				<td colspan="5"><h3>Total: <%=sprintf("-$%0.2f", sum)%></h3></td>
+			</tr>
+			<tr style="height: 4px;"><tr>
+			
+			<%= render :layout => "/transactions/transactions_list_header" do %>
+				<th><%= link_to "Account", "#", :class => "sort_field" %></th>
+			<% end %>
+			     
+			<%= render :layout => "/transactions/transactions_list", :locals => {:transactions => @transactions} do |transaction| %>
+				<td><%= transaction.account.name %></td>
+			<% end %>
+			
+			<tr style="height: 4px;"><tr>
+			<tr>
+				<td colspan="5"><h3>Total: <%=sprintf("-$%0.2f", sum)%></h3></td>
+			</tr>
+			
+		</table>
+	
+	
+	<% @categories.each do |c| %>
+	<% trans = @transactions.where(:category_id => c.id) %>
+	<% sum = Transaction.sum(trans).abs %>
+	
+		<table id="<%= c.internal_name %>" style="background: #e6e6e6;">
+			
+			<tr>
+				<td colspan="5"><h3>Total: <%=sprintf("-$%0.2f", sum)%></h3></td>
+			</tr>
+			<tr style="height: 4px;"><tr>
+			
+			<%= render :layout => "/transactions/transactions_list_header" do %>
+				<th><%= link_to "Account", "#", :class => "sort_field" %></th>
+			<% end %>
+			     
+			<%= render :layout => "/transactions/transactions_list", :locals => {:transactions => trans} do |transaction| %>
+				<td><%= transaction.account.name %></td>
+			<% end %>
+			
+			<tr style="height: 4px;"><tr>
+			<tr>
+				<td colspan="5"><h3>Total: <%=sprintf("-$%0.2f", sum)%></h3></td>
+			</tr>
+			
+		</table>
+
+	<% end %>
+	
+	
+</div>
+
+<style type="text/css">
+	#transactions_list a.tab:hover {
+		background-color: #ffff00;
+	}
+</style>
+
+<script type="text/javascript">
+<!--
+	$(document).ready(function () {
+		$("#transactions_list").tabs();
+	});
+//-->
+</script>

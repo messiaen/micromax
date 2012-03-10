@@ -22,6 +22,9 @@ MicroMax::Application.routes.draw do
   
   resource :sessions, :only => [:new, :create, :destroy]
   
+  match "/reports" => "reports#index"
+  match "/reports/monthly_expenses" => "reports#monthly_expenses"
+  
   match "/expenses/:id" => "transactions#show"
   
   match "/accounts/:id/withdraw" => "accounts#withdraw"

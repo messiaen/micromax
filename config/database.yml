@@ -11,7 +11,7 @@
 
 development:
   adapter: mysql
-  database: budgetdev
+  database: micromaxdb
   host: localhost
   port: 3306
   username: greg
