@@ -27,4 +27,29 @@ class IncomesController < TransactionsController
     end
   end
   
+  
+  def update
+    params[:expense][:person_id] = current_user.id
+    
+    @old_t = Transaction.find(params[:id])
+    
+    params.delete(:id)
+    
+    @new_t = Income.new(params[:expense])
+    
+    @t = Income.where(:description => @new_t.description, :date => @new_t.date).first
+    
+    respond_to do |format|
+      if Transaction.update_transaction(@old_t, @new_t)
+        @t = Income.where(:description => @new_t.description, :date => @new_t.date, :account_id => @new_t.account_id).first
+        flash[:notice] = "Expense updated successfully"
+        format.html {redirect_to "/transactions/#{@t.id}/edit" }
+      else
+        flash[:error] = "Error updating expense"
+        format.html {render edit_transaction_path(@old_t) }
+      end
+    end
+    
+  end
+  
 end

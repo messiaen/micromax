@@ -48,7 +48,7 @@
           <%= f.select( 
               	:category_id, 
               	Category.where(:kind => @transaction.type).map {|cat| [cat.name, cat.id]},
-              	:selected => current_user.profile.categories.where(:kind => @transaction.type).first.id ) %>
+              	:selected => @transaction.category_id ? @transaction.category_id : current_user.profile.categories.where(:kind => @transaction.type).first.id ) %>
         </div>
       </td>
       <td>
@@ -57,7 +57,7 @@
           <%= f.select(
                 :account_id,
                 current_user.accounts.map {|account| [account.name, account.id]},
-                :selected => current_user.default_account.id)%>
+                :selected => @transaction.account_id ? @transaction.account_id : current_user.default_account.id)%>
         </div>
       </td>
       <td>

@@ -95,6 +95,41 @@ class Transaction < ActiveRecord::Base
     return true
   end
   
+  def self.update_transaction(old_t, new_t)
+    if old_t.date != new_t.date || old_t.account_id != new_t.account_id
+      params = {}
+      params[:date] = new_t.date
+      params[:amount] = new_t.amount
+      params[:description] = new_t.description
+      params[:category_id] = new_t.category_id
+      params[:person_id] = new_t.person_id
+      params[:account_id] = new_t.account_id
+      
+      Transaction.insert_transaction(new_t, params)
+      Transaction.delete_transaction(old_t)
+      return true
+    else
+      old_t.category_id = new_t.category_id
+      old_t.description = new_t.description
+      old_t.person_id = new_t.person_id
+      
+      old_t.save
+    end
+    
+    if old_t.amount != new_t.amount
+      old_t.amount = new_t.amount
+      
+      if (parent = old_t.parent)
+        return Transaction.propagate_balances(parent)
+      else
+        return Transaction.propagate_balances(old_t)
+      end
+    end
+    
+    return true
+      
+  end
+  
   def self.transfer (from_id, to_id, params)
     params[:account_id] = from_id
     @transaction = Withdraw.new
@@ -115,6 +150,28 @@ class Transaction < ActiveRecord::Base
     end
     
     return sum
+  end
+  
+  def self.delete_transaction(transaction)
+    
+    parent = transaction.parent
+    child  = transaction.child
+    
+    if child
+      child.parent_id = parent.id
+      child.save
+    end
+    
+    if parent
+      parent.child_id = child ? child.id : nil
+      parent.save
+      
+      Transaction.propagate_balances(parent)
+    elsif child
+      Transaction.propagate_balances(child)
+    end
+    
+    transaction.delete
   end
   
   def date_string
