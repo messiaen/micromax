@@ -157,6 +157,7 @@ class Transaction < ActiveRecord::Base
     
     if old_t.amount != new_t.amount
       old_t.amount = new_t.amount
+      old_t.save
       
       if (parent = old_t.parent)
         return Transaction.propagate_balances(parent)
