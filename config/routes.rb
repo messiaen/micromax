@@ -24,6 +24,7 @@ MicroMax::Application.routes.draw do
   
   match "/reports" => "reports#index"
   match "/reports/monthly_expenses" => "reports#monthly_expenses"
+  match "/reports/monthly_categories_pie_chart" => "reports#monthly_categories_pie_chart"
   
   match "/expenses/:id" => "transactions#show"
   
@@ -31,6 +32,7 @@ MicroMax::Application.routes.draw do
   match "/accounts/:id/make_withdraw" => "accounts#make_withdraw"
   match "/accounts/:id/deposit" => "accounts#deposit"
   match "/accounts/:id/make_deposit" => "accounts#make_deposit"
+  match "/accounts/transfer" => "accounts#transfer"
   match "/accounts/:id/add_remove_users" => "accounts#add_remove_users"
   match "/accounts/:id/get_transactions" => "accounts#get_transactions"
   match "/accounts/:id/pay_account" => "credit_accounts#pay_account"

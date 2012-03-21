@@ -116,7 +116,7 @@ withdraw_payment:
   kind: Withdraw
 
 withdraw_transfer:
-  name: Transfre
+  name: Transfer
   internal_name: transfer
   kind: Withdraw
 

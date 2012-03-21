@@ -1,9 +1,11 @@
-<h1><%= @report_title %></h1>
+<h1>Monthly Expenses by Category</h1>
 
 <div id="transactions_list">
 	
 	<ul>
 		<li><a href="#all" class="tab">All</a>
+			<li><a href="#pie_chart" class="tab">Spending Pie Chart</a></li>
+			<li><a href="#expenses_chart" class="tab">Expenses Chart</a></li>
 		<% @categories.each do |c| %>
 			<li><a href="#<%=c.internal_name%>" class="tab"><%=c.name%></a>
 		<% end %>
@@ -13,24 +15,27 @@
 		<table id="all" style="background: #e6e6e6;">
 			
 			<tr>
-				<td colspan="5"><h3>Total: <%=sprintf("-$%0.2f", sum)%></h3></td>
+				<td colspan="5"><h3>Total: <%=sprintf("$%0.2f", sum)%></h3></td>
 			</tr>
 			<tr style="height: 4px;"><tr>
 			
-			<%= render :layout => "/transactions/transactions_list_header" do %>
-				<th><%= link_to "Account", "#", :class => "sort_field" %></th>
-			<% end %>
-			     
-			<%= render :layout => "/transactions/transactions_list", :locals => {:transactions => @transactions} do |transaction| %>
-				<td><%= transaction.account.name %></td>
-			<% end %>
+			<%= render :partial => "/transactions/report_transactions_list_header" %>
+			<%= render :partial => "/transactions/report_transactions_list", :locals => {:transactions => @transactions} %>
 			
 			<tr style="height: 4px;"><tr>
 			<tr>
-				<td colspan="5"><h3>Total: <%=sprintf("-$%0.2f", sum)%></h3></td>
+				<td colspan="5"><h3>Total: <%=sprintf("$%0.2f", sum)%></h3></td>
 			</tr>
 			
 		</table>
+		
+		<div id="pie_chart">
+			<div id="chart1" style="width: 1000px; height: 600px;"></div>
+		</div>
+		
+		<div id="expenses_chart">
+			<div id="chart2" style="width: 1000px; height: 600px;"></div>
+		</div>
 	
 	
 	<% @categories.each do |c| %>
@@ -40,24 +45,21 @@
 		<table id="<%= c.internal_name %>" style="background: #e6e6e6;">
 			
 			<tr>
-				<td colspan="5"><h3>Total: <%=sprintf("-$%0.2f", sum)%></h3></td>
+				<td colspan="5"><h3>Total: <%=sprintf("$%0.2f", sum)%></h3></td>
 			</tr>
 			<tr style="height: 4px;"><tr>
 			
-			<%= render :layout => "/transactions/transactions_list_header" do %>
-				<th><%= link_to "Account", "#", :class => "sort_field" %></th>
-			<% end %>
+			<%= render :partial => "/transactions/report_transactions_list_header" %>
 			     
-			<%= render :layout => "/transactions/transactions_list", :locals => {:transactions => trans} do |transaction| %>
-				<td><%= transaction.account.name %></td>
-			<% end %>
+			<%= render :partial => "/transactions/report_transactions_list", :locals => {:transactions => trans} %>
 			
 			<tr style="height: 4px;"><tr>
 			<tr>
-				<td colspan="5"><h3>Total: <%=sprintf("-$%0.2f", sum)%></h3></td>
+				<td colspan="5"><h3>Total: <%=sprintf("$%0.2f", sum)%></h3></td>
 			</tr>
 			
 		</table>
+
 
 	<% end %>
 	
@@ -74,6 +76,92 @@
 <!--
 	$(document).ready(function () {
 		$("#transactions_list").tabs();
+		
+		
+		new Highcharts.Chart({
+			chart: {
+				renderTo: "chart1"
+			},
+			
+			title: {
+				text: "Percent of Expenses by category"
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					dataLabels: {
+						enable: true,
+						formatter: function() {
+							return "<b>" + this.point.name + "</b>: " + this.percentage.toFixed(1) + "%";
+						}
+					}
+				}
+			},
+			tooltip: {
+				formatter: function () {
+					return "<b>" + this.point.name + "</b>: " + this.percentage.toFixed(1) + "%";
+				}
+			},
+			series: [{
+				type: 'pie',
+				name: "Percent Total Expenses",
+				data: <%=raw @chart_data.inspect %>
+			}]
+		});
+		
+		
+		new Highcharts.Chart({
+			chart: {
+				renderTo: "chart2"
+			},
+			
+			title: {
+				text: "Expenses by Category"
+			},
+			xAxis: {
+				title: {
+					text: "Category"
+				},
+				categories: <%=raw @category_names.inspect %>
+			},
+			yAxis: {
+				title: {
+					text: "Amount Spent"
+				},
+				labels: {
+					formatter: function () {
+						return "$" + this.value.toFixed(2);
+					}
+				},
+				min: 0,
+				max: <%= @total_income + @total_income * 0.3 %>
+			},
+			plotOptions: {
+				series: {
+					connectNulls: true
+				}
+			},
+			tooltip: {
+				formatter: function () {
+					if (this.series.name == "Total Income") {
+						return "Total Income: " + this.y.toFixed(2);
+					} else {
+						return this.x + ": " + "$" + this.y.toFixed(2);
+					}
+				}
+			},
+			series: [{
+				name: "Money Spent in Category",
+				type: "column",
+				data: <%=raw @bar_data.inspect %>
+			},
+			{
+				name: "Total Income",
+				type: "spline",
+				data: <%=raw @income_line.inspect %>
+			}]
+		});
+		
 	});
 //-->
 </script>

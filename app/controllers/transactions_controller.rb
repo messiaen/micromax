@@ -6,27 +6,27 @@ class TransactionsController < ApplicationController
       :all => Transaction.order(
         "date desc, created_at desc").where(
           "date >= ? AND date <= ?", 
-          Date.today - 60.days, Date.today + 7.days),
+          Date.today - 35.days, Date.today + 7.days),
       
       :expenses => Expense.order(
         "date desc, created_at desc").where(
           "date >= ? AND date <= ?", 
-          Date.today - 60.days, Date.today + 7.days),
+          Date.today - 35.days, Date.today + 7.days),
       
       :incomes => Income.order(
         "date desc, created_at desc").where(
           "date >= ? AND date <= ?", 
-          Date.today - 60.days, Date.today + 7.days),
+          Date.today - 35.days, Date.today + 7.days),
       
       :withdraws => Withdraw.order(
         "date desc, created_at desc").where(
           "date >= ? AND date <= ?", 
-          Date.today - 60.days, Date.today + 7.days),
+          Date.today - 35.days, Date.today + 7.days),
       
       :deposits => Deposit.order(
         "date desc, created_at desc").where(
           "date >= ? AND date <= ?", 
-          Date.today - 60.days, Date.today + 7.days)
+          Date.today - 35.days, Date.today + 7.days)
     }
 
     respond_to do |format|

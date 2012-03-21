@@ -32,9 +32,17 @@
 	<%= label_tag "Transactions", "Tansactions", :style => "font-size: 11pt; font-weight: bold;" %>
 	<div id="transactions_list">
 		<table>
-			<%= render :partial => "transactions/transactions_list_header" %>
+			<%= render :layout => "transactions/transactions_list_header" do %>
+				<th><%= link_to "Balance", "#" %></th>
+			<% end %>
 	
-			<%= render :partial => "/transactions/transactions_list", :locals => {:transactions => @transactions} %>
+			<%= render :layout => "/transactions/transactions_list", :locals => {:transactions => @transactions} do |transaction| %>
+				<% if transaction.account_balance < 0 %>
+				  <td style="color: red; text-align: right; vertical-align: top; padding-right: 20px;"><%= sprintf("-$%0.2f", transaction.account_balance * -1) %></td>
+				<% else %>
+					<td style="text-align: right; padding-right: 20px;"><%= sprintf("$%0.2f", transaction.account_balance) %></td>
+				<% end %>
+			<% end %>
 		</table>
 	</div>
 	

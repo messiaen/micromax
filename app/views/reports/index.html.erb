@@ -2,7 +2,7 @@
 <%= form_for :month, :url => "/reports/monthly_expenses" do |f| %>
 <table>
 	<tr>
-		<td><%= f.label :monthly, "Monthly Expenses" %></td>
+		<td><%= f.label :monthly, "Monthly Expenses by Category" %></td>
 		<td><%= select_month(Date.today) %></td>
 		<td><%= select_year(Date.today) %></td>
 		<td><%= f.submit "Generate Report" %></td>
