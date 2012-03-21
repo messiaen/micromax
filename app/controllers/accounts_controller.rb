@@ -26,7 +26,7 @@ class AccountsController < ApplicationController
     
     
     @transactions = @account.transactions.order(
-                      "date asc, created_at asc"
+                      "date desc, created_at desc"
                     ).where(
                       "date >= ? AND date <= ?",
                       @start_date,
@@ -93,6 +93,22 @@ class AccountsController < ApplicationController
       render :controller => :accounts, :action => :make_deposit
     end
     
+  end
+  
+  def transfer
+    unless user_logged_in then return end
+      
+      from_id = params[:transfer].delete(:from)
+      to_id   = params[:transfer].delete(:to)
+      
+      if Transaction.transfer(from_id, to_id, params[:transfer])
+        flash[:notice] = "Transfer Recorded"
+        redirect_to "/accounts"
+      else
+        flash[:error] = "Error Recording Transfer"
+        render :controller => :accounts, :action => :index
+      end
+      
   end
 
   # GET /accounts/new

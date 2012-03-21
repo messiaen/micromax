@@ -18,7 +18,7 @@ class Transaction < ActiveRecord::Base
   
   def self.insert_transaction(transaction, params)
     account = Account.find(params[:account_id])
-    transactions = account.transactions.order("date asc")
+    transactions = account.transactions.order("date asc, created_at asc")
     #transactions = LinkedRecordIterator.new(account.transactions)
     
     transaction.date        = params[:date]
@@ -35,9 +35,9 @@ class Transaction < ActiveRecord::Base
       end
     end
     
-    if child
-      while (c = child.parent) && c.date == child.date
-        child = c
+    if (child = parent.child)
+      while !child.nil? && child.date <= transaction.date
+        child = child.child
       end
     end
     
@@ -75,7 +75,9 @@ class Transaction < ActiveRecord::Base
     return Transaction.propagate_balances(transaction)
   end
   
-  def self.propagate_balances (transaction)
+  
+  # recursive version
+  def self.old_propagate_balances (transaction)
     parent = transaction.parent
     
     transaction.account_balance = if parent
@@ -93,6 +95,43 @@ class Transaction < ActiveRecord::Base
     end
     
     return true
+  end
+  
+  def self.propagate_balances (transaction)
+    current = transaction
+    
+    while !current.nil?
+      parent = current.parent
+      
+      current.account_balance = if parent
+        parent.account_balance + current.amount
+      else
+        current.amount
+      end
+      
+      unless current.save
+        return false
+      end
+      
+      current = current.child
+      
+    end
+    
+    return true
+    
+  end
+  
+  # a function to cleanup pointers if mistakes are made
+  def self.relink_transactions(account)
+    transactions = account.transactions.order("date asc, created_at asc")
+    
+    transactions.each_index do |i|
+      transactions[i].parent_id = (i == 0) ? nil : transactions[i - 1].id
+      transactions[i].child_id  = !transactions[i + 1].nil? ? transactions[i + 1].id : nil
+      
+      transactions[i].save
+    end
+    
   end
   
   def self.update_transaction(old_t, new_t)
@@ -132,14 +171,26 @@ class Transaction < ActiveRecord::Base
   
   def self.transfer (from_id, to_id, params)
     params[:account_id] = from_id
+    params[:category_id] = Category.where(:internal_name => "transfer", 
+      :kind => "Withdraw").first.id
+    
     @transaction = Withdraw.new
     
-    Transaction.insert_transaction(@transaction, params)
+    if !Transaction.insert_transaction(@transaction, params)
+      return false
+    end
     
     params[:account_id] = to_id
+    params[:category_id] = Category.where(:internal_name => "transfer", 
+      :kind => "Deposit").first.id
+    
     @transaction = Deposit.new
     
-    Transaction.insert_transaction(@transaction, params)
+    if !Transaction.insert_transaction(@transaction, params)
+      return false
+    end
+    
+    return true
     
   end
   

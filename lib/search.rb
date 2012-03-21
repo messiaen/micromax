@@ -14,8 +14,22 @@ class Search
     elsif item.send(message) >= list[high].send(message)
       return list[high], nil
     end
-
-    return Search.find_around_iter(list, item, low, mid, high, message)
+    
+    while high - low > 1
+      if list[mid].send(message) == item.send(message)
+        return list[mid], list[mid + 1];
+      elsif item.send(message) < list[mid].send(message)
+        high = mid
+      else
+        low = mid
+      end
+      
+      mid = (high + low) / 2
+    end
+    
+    return list[low], list[high]
+    
+    #return Search.find_around_iter(list, item, low, mid, high, message)
   end
   
   
