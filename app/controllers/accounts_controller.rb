@@ -100,6 +100,8 @@ class AccountsController < ApplicationController
       
       from_id = params[:transfer].delete(:from)
       to_id   = params[:transfer].delete(:to)
+	  
+	  params[:transfer][:person_id] = current_user.id
       
       if Transaction.transfer(from_id, to_id, params[:transfer])
         flash[:notice] = "Transfer Recorded"
