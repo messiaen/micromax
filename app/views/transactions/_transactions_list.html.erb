@@ -1,0 +1,26 @@
+			
+			<% transactions.each do |transaction| %>
+			<tr>
+				<td style="text-align: left; vertical-align: top; padding-right: 20px;"><%= transaction.date.strftime("%b %d %Y") %></td>
+				<td><%= transaction.description %></td>
+				
+				<% if transaction.amount < 0 %>
+				  <td style="color: red; text-align: right; vertical-align: top; padding-right: 20px;"><%= sprintf("-$%0.2f", transaction.amount * -1) %></td>
+				<% else %>
+					<td style="text-align: right; padding-right: 20px;"><%= sprintf("$%0.2f", transaction.amount) %></td>
+				<% end %>
+				
+				<%= yield transaction %>
+				
+				<td style="text-align: left; vertical-align: top; padding-right: 20px;"><%= transaction.category.name %></td>
+				<td style="text-align: left; vertical-align: left; padding-right: 20px;"><%= transaction.person ? transaction.person.name : "" %></td>
+				
+				<% if current_user.is_admin? %>
+					<td style="text-align: left; vertical-align: left; padding-right: 20px;"><%= link_to 'Delete', transaction, :confirm => 'Are you sure?', :method => :delete %></td>
+				<% else %>
+					<td style="text-align: left; vertical-align: left; padding-right: 20px;"><%= link_to "Edit", edit_transaction_path(transaction) %></td>
+				<% end %>
+			</tr>
+			<% end %>
+			
+			<tr style="height: 10px;"></tr>

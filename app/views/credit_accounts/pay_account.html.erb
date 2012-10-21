@@ -1,0 +1,30 @@
+<%= form_for @account, :url => "/accounts/#{@account.id}/make_payment" do |f| %>
+<h1>Record a payment on: <%= @account.name %></h1>
+
+<%= render :partial => "/layouts/flash_display.html"%>
+
+	<table>
+		<tr>
+			<th>Pay from</th>
+			<th>Date</th>
+			<th>Description</th>
+			<th>Amount</th>
+			<th></th>
+		</tr>
+		<tr>
+			<td>
+				<%= select(
+							:payment, 
+							:from, 
+							current_user.accounts.where(
+								:type => ["CashAccount", "BankAccount"]
+							).map{|account| [account.name, account.id]},
+							:selected => current_user.default_account.id) %>
+			</td>
+			<td><%= text_field_tag :date, "", :name => "payment[date]", :class => "date_popup" %></td>
+			<td><%= text_field_tag :descritpion, "", :name => "payment[description]" %></td>
+			<td>$<%= text_field_tag :amount, "", :name => "payment[amount]" %></td>
+			<td><%= f.submit "Record Payment" %></td>
+		</tr>
+	</table>
+<% end %>

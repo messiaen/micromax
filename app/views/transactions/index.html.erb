@@ -1,0 +1,40 @@
+<h2>Recent Transactions</h2>
+
+<div id="transactions_list">
+	
+	<ul>
+		<li><a href="#all" class="tab">All</a>
+		<li><a href="#expenses" class="tab">Expenses</a></li>
+		<li><a href="#incomes" class="tab">Incomes</a></li>
+		<li><a href="#withdraws" class="tab">Withdraws</a></li>
+		<li><a href="#deposits" class="tab">Deposits</a></li>
+	</ul>
+	
+	<% @transactions.each_pair do |key, value| %>
+		<table id="<%= key.to_s %>" style="background: #e6e6e6;">
+			
+			<%= render :layout => "/transactions/transactions_list_header" do %>
+				<th><%= link_to "Account", "#", :class => "sort_field" %></th>
+			<% end %>
+			     
+			<%= render :layout => "/transactions/transactions_list", :locals => {:transactions => value} do |transaction| %>
+				<td><%= transaction.account.name %></td>
+			<% end %>
+		</table>
+	<% end %>
+	
+</div>
+
+<style type="text/css">
+	#transactions_list a.tab:hover {
+		background-color: #ffff00;
+	}
+</style>
+
+<script type="text/javascript">
+<!--
+	$(document).ready(function () {
+		$("#transactions_list").tabs();
+	});
+//-->
+</script>

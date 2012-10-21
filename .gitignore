@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.rbc
 *.sassc
 .sass-cache
@@ -14,3 +15,11 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+=======
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/
+.sass-cache/
+.project
+>>>>>>> development

@@ -1,0 +1,9 @@
+		<td><%= link_to "#{account.name}", account_path(account) %></td>
+    
+    <% if account.balance < 0%>
+    <td style="color: red;"><%= account.balance_string %></td>
+    <% else %>
+    <td><%= account.balance_string %></td>
+    <% end %>
+    
+    <%= render :partial => "/#{account.type.to_s.underscore}s/options", :locals => {:account => account} %>

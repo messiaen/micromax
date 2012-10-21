@@ -1,0 +1,41 @@
+<h1>Change Preferences</h1>
+
+<%= render :partial => "/layouts/flash_display.html"%>
+
+<%= form_for @person do |f| %>
+<table>
+	<tr>
+		<td><%= f.label :name %></td>
+		<td><%= f.text_field :name %></td>
+	</tr>
+	
+	<tr>
+		<td><%= link_to "Change Password", "/people/#{@person.id}/edit_password" %></td>
+	</tr>
+	
+	<tr>
+		<td><%= label_tag :account, "Default Account" %></td>
+		<td><%= select(
+						  :profile, 
+						  :account_id, 
+						  @person.accounts.map {|account|
+						  	[account.name, account.id]}, :selected => @person.default_account.id) %></td>
+	</tr>
+	
+	<% ["Income", "Expense", "Withdraw", "Deposit"].each do |kind| %>
+	<tr>
+		<td><%= label_tag :default_income, "Default #{kind} Category"%></td>
+		<td><%= select(
+		        	:profile, 
+		        	:categories, 
+		        	Category.where(:kind => kind).map {|cat| [cat.name, cat.id]},
+		        	{:selected => (c = @person.categories.where(:kind => kind).first) ? c.id : nil},
+		        	{:name => "profile[categories][]"}) %></td>
+	</tr>
+	<% end %>	
+	
+	<tr>
+		<td><%= f.submit "Update Preferences" %></td>
+	</tr>
+</table>
+<% end %>

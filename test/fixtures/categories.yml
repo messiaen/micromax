@@ -1,0 +1,188 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+gas:
+  name: Gas
+  internal_name: gas
+  kind: Expense
+
+car:
+  name: Car
+  internal_name: car
+  kind: Expense
+
+monthly:
+  name: Monthly Expenses
+  internal_name: monthly
+  kind: Expense
+
+medical:
+  name: Medical
+  internal_name: medical
+  kind: Expense
+
+grocery:
+  name: Grocery
+  internal_name: grocery
+  kind: Expense
+
+clothes:
+  name: Clothes
+  internal_name: clothes
+  kind: Expense
+
+house:
+  name: House
+  internal_name: house
+  kind: Expense
+
+school:
+  name: School
+  internal_name: school
+  kind: Expense
+
+technology:
+  name: Technology
+  internal_name: technology
+  kind: Expense
+
+dining:
+  name: Dining and Leisure
+  internal_name: dinning
+  kind: Expense
+
+travel:
+  name: Vacation
+  internal_name: vacation
+  kind: Expense
+
+expense_gifts:
+  name: Gifts
+  internal_name: gifts
+  kind: Expense
+
+media:
+  name: Books and Media
+  internal_name: media
+  kind: Expense
+
+entertainment:
+  name: Entertainment
+  internal_name: entertainment
+  kind: Expense
+  
+expense_other:
+  name: Other
+  internal_name: other
+  kind: Expense
+
+expense_payment:
+  name: Payment
+  internal_name: payment
+  kind: Expense
+  
+paychecks:
+  name: Paycheck
+  internal_name: paychecks
+  kind: Income
+
+income_gifts:
+  name: Gift
+  internal_name: gifts
+  kind: Income
+
+refunds:
+  name: Refund
+  internal_name: refunds
+  kind: Income
+
+loans:
+  name: Loan
+  internal_name: loan
+  kind: Income
+
+income_other:
+  name: Other
+  internal_name: other
+  kind: Income
+
+withdraw_atm:
+  name: ATM
+  internal_name: atm
+  kind: Withdraw
+
+withdraw_payment:
+  name: Payment
+  internal_name: payment
+  kind: Withdraw
+
+withdraw_transfer:
+  name: Transfer
+  internal_name: transfer
+  kind: Withdraw
+
+withdraw_other:
+  name: Other
+  internal_name: other
+  kind: Withdraw
+
+deposit:
+  name: Deposit
+  internal_name: deposit
+  kind: Deposit
+  
+deposit_payment:
+  name: Payment
+  internal_name: payment
+  kind: Deposit
+
+deposit_transfer:
+  name: Transfer
+  internal_name: transfer
+  kind: Deposit
+
+checking:
+  name: Checking
+  internal_name: checking
+  kind: BankAccount
+
+savings:
+  name: Savings
+  internal_name: savings
+  kind: BankAccount
+
+bank_account_other:
+  name: Other
+  internal_name: account_other
+  kind: BankAccount
+
+cash:
+  name: Cash
+  internal_name: cash
+  kind: CashAccount
+
+special:
+  name: Gift Card
+  internal_name: gift_card
+  kind: CashAccount
+
+cash_account_other:
+  name: Other
+  internal_name: account_other
+  kind: CashAccount
+
+credit_card:
+  name: Credit Card
+  internal_name: credit_card
+  kind: CreditCardAccount
+
+loan:
+  name: Load
+  internal_name: loan
+  kind: CreditAccount
+
+
+
+
+
+
+

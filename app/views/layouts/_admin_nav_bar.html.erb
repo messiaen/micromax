@@ -1,0 +1,29 @@
+<div id="nav_bar">
+	<table>
+		<tr>
+			<% if current_user %>
+			<td><%= image_tag "budgie_diagram.png", :size => "40x40" %></td>
+			<% end %>
+			<td>
+				<table>
+					<tr>
+						<% if current_user %>
+							<td colspan="6"><b>
+								<%= "Logged in as #{current_user.username}" %></b>
+						</td>
+						<% else %>
+							<td colspan="6"><b>Please Log in</b></td>
+						<% end %>
+					</tr>
+					<tr>
+						<td><%= link_to "Home", "/admin" %></td>
+						<td><%= link_to "Accounts", "/admin/account_list" %></td>
+						<td><%= link_to "People", "/people" %></td>
+						<td><%= link_to "Recent Transactions", "/transactions" %></td>
+						<td>| <%= link_to "Logout", "/logout" %></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>

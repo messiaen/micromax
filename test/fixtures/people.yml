@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+admin:
+  name: Administrator
+  username: admin
+  password: f6ae3e25affd850d08a6ef1bcc5ac07aea50e69e20b5654792d493c3603662ac5095225aef1b4c5c6a2ff14fc839a35b1324a706e04d518f68d19dbe46a8159fdfb303a612a1206dda6149472b5efd5d6d4f02c02c3814931812734b42be7d6b
+  

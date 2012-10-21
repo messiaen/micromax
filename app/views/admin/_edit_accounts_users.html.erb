@@ -1,0 +1,30 @@
+<%= form_for :accounts_people, :url => "/admin/update_accounts_users" do |f| %>
+	<h3>Add a User to an Account</h3>
+	
+	<!-- <table> -->
+		<tr>
+			<th style="text-align: left;">Account</th>
+			<th style="text-align: left;">Person</th>
+		</tr>
+		<tr>
+			<td>
+				<%= select(
+				      :account, 
+				      :account_id, 
+				      Account.all.map {|account|
+				      	[account.name, account.id]}) %>
+			</td>
+			<td>
+				<%= select( 
+				      :person, 
+				      :person_id,
+				      Person.all.map {|person|
+				      	[person.name, person.id]}) %>
+			</td>
+			<td>
+				<%= f.submit "Add" %>
+			</td>
+		</tr>
+	<!-- </table> -->
+
+<% end %>

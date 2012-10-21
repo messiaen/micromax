@@ -1,0 +1,3 @@
+$("#transactions_list #<%= @type.to_s.downcase %>s").html("<%= escape_javascript render(:layout => '/transactions/transactions_list', :locals => {:transactions => @transactions}) do |transaction| %>" +
+"<td><%= transaction.account.name %></td>" +
+"<% end %>");

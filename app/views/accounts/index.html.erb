@@ -1,0 +1,70 @@
+<h1>Your Accounts</h1>
+
+<% if flash[:notice] %>
+    <div id="notice">
+      <h4><%= flash[:notice] %></h4>
+    </div>
+  <% elsif flash[:error] %>
+    <div id="error">
+      <h4><%= flash[:error] %></h4>
+    </div>
+  <% end %>
+
+<table>
+  <tr>
+    <th style="text-align: left;">Account</th>
+    <th style="text-align: left;">Balance</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% current_user.accounts.each do |account| %>
+  <tr>
+    <%= render :partial => "/#{account.type.to_s.underscore}s/#{account.type.to_s.underscore}", :object => account, :locals => {:account => account} %>    
+  </tr>
+<% end %>
+</table>
+
+<br />
+<br />
+
+<%= form_for :transfer, :url => "/accounts/transfer" do |f| %>
+	<h3>Transfer</h3>
+	<table>
+		<tr>
+			<th>Amount</th><th>Date</th>
+		</tr>
+		
+		<tr>
+			<td>$<%= f.text_field :amount %></td>
+			<td><%= f.text_field :date, :class => "date_popup"%></td>
+		<tr>
+			<th>From</th><th>To</th>
+		</tr>
+		<tr>
+			<td>
+				<%= f.select(
+						:from,
+            current_user.accounts.where(
+            	:category_id => Category.where(
+            		:kind => "BankAccount").
+            		map {|c| c.id}).map {|account| [account.name, account.id]},
+            :selected => current_user.default_account.id) %>
+      </td>
+      <td>
+      	<%= f.select(
+						:to,
+            current_user.accounts.where(
+            	:category_id => Category.where(
+            		:kind => "BankAccount").
+            		map {|c| c.id}).map {|account| [account.name, account.id]},
+            :selected => current_user.default_account.id) %>
+      </td>
+    </tr>
+    <tr> 
+      <td><%= f.submit "Transfer" %></td>
+    </tr>
+		</tr>
+		
+	</table>
+<% end %>

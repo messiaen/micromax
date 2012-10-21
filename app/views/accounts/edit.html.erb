@@ -1,0 +1,20 @@
+<h1>Editing account</h1>
+
+<table>
+	<tr>
+		<td><%= render 'form' %></td>
+		<td><%= render 'add_remove_users' %></td>
+	</tr>
+</table>
+
+<%= link_to 'Back', "/admin" %><br />
+<%= link_to 'Delete This Account', @account, :confirm => 'Are you sure?', :method => :delete %>
+
+
+<style type="text/css">
+
+table td {
+	vertical-align: top;
+}
+
+</style>

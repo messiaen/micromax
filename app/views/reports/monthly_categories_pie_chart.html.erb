@@ -1,0 +1,44 @@
+<script type="text/javascript" charset="UTF-8">
+	<!--
+	
+	$(document).ready(function() {
+		new Highcharts.Chart({
+			chart: {
+				renderTo: "chart"
+			},
+			
+			title: {
+				text: "Expenses by category"
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					dataLabels: {
+						enable: true,
+						formatter: function() {
+							return "<b>" + this.point.name + "</b>: " + this.percentage.toFixed(1) + "%";
+						}
+					}
+				}
+			},
+			tooltip: {
+				formatter: function () {
+					return "<b>" + this.point.name + "</b>: " + this.percentage.toFixed(1) + "%";
+				}
+			},
+			series: [{
+				type: 'pie',
+				name: "Percent Spent",
+				data: <%=raw @chart_data.inspect %>
+			}]
+		});
+	});
+	
+	//-->
+</script>
+
+<div id="chart" style="width: 800px; height: 600px;">
+	
+
+	
+</div>
